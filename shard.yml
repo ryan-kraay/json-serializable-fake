@@ -1,0 +1,14 @@
+name: serializer_fake
+version: 0.9.0
+
+authors:
+  - Ryan Kraay <6840071+ryan-kraay@users.noreply.github.com>
+
+crystal: 1.8.2
+
+license: LGPL
+
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
+    version: ~> 0.11.6
