@@ -3,7 +3,7 @@
     <img width="300" src="https://raw.githubusercontent.com/ryan-kraay/serialize-fake-cr/master/assets/logo.png" alt="Logo">
   </a>
   
-  <h1>The Unofficial Stremio Addon SDK for Crystal</h1>
+  <h1>Use JSON::Serializable to generate dynamic JSON/fields</h1>
   
   <p>
     <a href="https://github.com/ryan-kraay/serialize-fake-cr/actions/workflows/ci.yml">
@@ -49,14 +49,41 @@ A Crystal Library which extends JSON::Serializable to allow JSON to be generated
 ## Usage
 
 ```crystal
-require "serialize-fake-cr"
+require "json/fakefield"
+
+class Sum
+  include JSON::Serializable
+  include JSON::Serializable::Fake
+
+  property a : UInt32
+  property b : UInt32
+
+  def initialize(@a, @b)
+  end
+
+  @[JSON::FakeField]
+  def sum(json : ::JSON::Builder) : Nil
+    json.number(a + b)
+  end
+end
+
+s = Sum.new(10, 5)
+puts s.to_json    # => { "a": 10, "b": 5, "sum": 15 }
 ```
 
-TODO: Write usage instructions here
+## Features
 
-## Development
+This library was born out of desire to use classes and members to construct JSON object, but **also** to use methods to construct JSON fields that _do not necessarily need to be stored as members in a class definition_.
 
-TODO: Write development instructions here
+Some additional features:
+* `JSON::FakeField(key: <name>)`:  creates a field with an explicit name (by default it uses the method name)
+* `JSON::FakeField(supress_key: true)`:  if `true` no json field will be implicitly added.  This allows the method to create multiple json fields or an entire JSON document using `JSON::Builder`.
+* Integrates with `JSON::Serializable` and `JSON::Seriazable::Unmapped`:  this allows you to mix-and-match and create nested `JSON::Serializable` and `JSON::Serializable::Fake` objects.
+
+## Limitations
+
+1. This library only supports JSON _Serialization_ (not YAML).  There is no technical reason for this limitation, just a lack of time.
+2. This library only support _Serialization_.  _Deserializing_ into a method call is not support.  Again, there is no technical limitation, only time.  However, `JSON::FakeFields` will appear as `objecct.json_unmapped[<fakefield>]`, when `JSON::Serializable::Unmapped` is used.
 
 ## Contributing
 
@@ -65,7 +92,3 @@ TODO: Write development instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## Contributors
-
-- [Ryan Kraay](https://github.com/ryan-kraay) - creator and maintainer

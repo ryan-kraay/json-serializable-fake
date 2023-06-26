@@ -1,6 +1,5 @@
-# TODO: Write documentation for `SerializerFake`
-module SerializerFake
-  VERSION = "0.1.0"
+require "json/fakefield"
 
-  # TODO: Put your code here
+module Serializer::Fake
+  VERSION = "0.0.1"
 end
