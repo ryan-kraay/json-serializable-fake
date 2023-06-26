@@ -1,7 +1,7 @@
 require "json"
 
-module JSON #< reference documentation
-  module Serializable #< reference documentation
+module JSON           # < reference documentation
+  module Serializable # < reference documentation
   end
 end
 
@@ -33,7 +33,7 @@ module JSON
   # end
   #
   # s = Sum.new(10, 5)
-  # puts s.to_json    # => { "a": 10, "b": 5, "sum": 15 }
+  # puts s.to_json # => { "a": 10, "b": 5, "sum": 15 }
   # ```
   #
   # ### Usage
@@ -47,7 +47,7 @@ module JSON
   # You can customize the behavior of each fake field via the `JSON::FakeField` annotation.
   # Method calls **MUST** accept `::JSON::Builder` as a parameter and return `::Nil`.  The
   # construction of JSON elements is handled via [::JSON::Builder](https://github.com/crystal-lang/crystal/blob/master/src/json/builder.cr#L6).
-  # 
+  #
   # `JSON::FakeField` properties:
   # * **key**: an explicit name of the field added to the json string (by default it uses the method name)
   # * **supress_key**: if `true` no json field will be implictly added.  This allows the method call to create multiple json fields
@@ -67,7 +67,7 @@ module JSON
               {% if ann[:suppress_key] == true %}
                 {{ imeth.name }} json
               {% else %}
-                json.field {{ ( ann[:key] || imeth.name ).stringify }} do
+                json.field {{ (ann[:key] || imeth.name).stringify }} do
                   {{ imeth.name }} json
                 end
               {% end %}

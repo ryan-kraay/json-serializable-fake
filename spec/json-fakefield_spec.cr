@@ -2,7 +2,6 @@ require "./spec_helper"
 require "../src/json/fakefield"
 
 Spectator.describe JSON::FakeField do
-
   @[JSON::Serializable::Options(ignore_deserialize: true)]
   class Sum
     include JSON::Serializable
@@ -24,7 +23,6 @@ Spectator.describe JSON::FakeField do
       json.number(a + b)
     end
   end
-
 
   let(a) { 10_u32 }
   let(b) { 5_u32 }
@@ -76,7 +74,7 @@ Spectator.describe JSON::FakeField do
     end
 
     it "#supress_key" do
-      expect(subject["div"]).to eq( (a / b).to_i )
+      expect(subject["div"]).to eq((a / b).to_i)
       expect(subject["const"]).to eq(a)
     end
   end
@@ -101,7 +99,7 @@ Spectator.describe JSON::FakeField do
       end
 
       @[JSON::FakeField]
-      def types(json : ::JSON::Builder ) : Nil
+      def types(json : ::JSON::Builder) : Nil
         json.array do
           T.each do |e|
             e.to_json(json)
@@ -113,7 +111,7 @@ Spectator.describe JSON::FakeField do
     it "includes types" do
       # A universal widget that can be fed any enum type...
       widget = Widget.new(Color::Red, Color::Blue)
-      expect(widget.to_json).to eq( %q({"a":"red","b":"blue","types":["red","green","blue"]}) )
+      expect(widget.to_json).to eq(%q({"a":"red","b":"blue","types":["red","green","blue"]}))
     end
   end
 
@@ -121,7 +119,7 @@ Spectator.describe JSON::FakeField do
     class SumDeserializable
       include JSON::Serializable
       include JSON::Serializable::Unmapped
-      include JSON::Serializable::Fake  # This **MUST** be last
+      include JSON::Serializable::Fake # This **MUST** be last
 
       property a : UInt32
       property b : UInt32
@@ -143,13 +141,12 @@ Spectator.describe JSON::FakeField do
       parsed = Hash(String, UInt32).from_json(results_text)
       expect(parsed["a"]).to eq(a)
       expect(parsed["b"]).to eq(b)
-      expect(parsed["sum"]).to eq( a + b )
+      expect(parsed["sum"]).to eq(a + b)
 
       result = SumDeserializable.from_json(results_text)
       expect(result.a).to eq(expected.a)
       expect(result.b).to eq(expected.b)
       expect(result.json_unmapped["sum"]).to eq(a + b)
     end
-    
   end
 end
