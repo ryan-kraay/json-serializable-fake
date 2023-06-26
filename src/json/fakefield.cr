@@ -1,11 +1,10 @@
 require "json"
 
-module JSON           # < reference documentation
-  module Serializable # < reference documentation
-  end
+module JSON::Serializable # < reference documentation
 end
 
 module JSON
+  # :nodoc:
   annotation FakeField
   end
 
