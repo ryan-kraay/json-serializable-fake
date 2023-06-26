@@ -71,6 +71,8 @@ s = Sum.new(10, 5)
 puts s.to_json    # => { "a": 10, "b": 5, "sum": 15 }
 ```
 
+Additional documentation can be found [here](https://ryan-kraay.github.io/serializable-fake-cr/JSON/Serializable/Fake.html).
+
 ## Features
 
 This library was born out of desire to use classes and members to construct JSON object, but **also** to use methods to construct JSON fields that _do not necessarily need to be stored as members in a class definition_.
