@@ -1,6 +1,6 @@
 require "json"
 
-module JSON::Serializable           # < reference documentation
+module JSON::Serializable # < reference documentation
 end
 
 module JSON
