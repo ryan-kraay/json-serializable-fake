@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        crystal: [1.8.2]  # This needs to be kept in sync with /shards.yml  # TODO include "latest" once this is more mature
+        crystal: [1.8.2, latest]  # This needs to be kept in sync with /shards.yml  # TODO include "latest" once this is more mature
     runs-on: ubuntu-latest
     steps:
       - name: Download source
