@@ -40,7 +40,7 @@ A Crystal Library which extends JSON::Serializable to allow JSON to be generated
 
    ```yaml
    dependencies:
-     serializable-fake-cr:
+     serializable-fake:
        github: ryan-kraay/serializable-fake-cr
    ```
 
