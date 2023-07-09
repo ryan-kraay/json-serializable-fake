@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/json/fakefield"
+require "../src/json-serializable-fake"
 
 Spectator.describe JSON::FakeField do
   @[JSON::Serializable::Options(ignore_deserialize: true)]

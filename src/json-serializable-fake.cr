@@ -1,5 +1,9 @@
 require "json"
 
+module JSON::Serializable::Fake
+  VERSION = "0.0.1"
+end
+
 module JSON::Serializable # < reference documentation
 end
 
