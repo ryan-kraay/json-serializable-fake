@@ -164,8 +164,7 @@ Spectator.describe JSON::FakeField do
     # The use of typecasting "as(Sum)", allows us to explore if we slice
     # classes.  Since Crystal Classes are referenced based, this should not
     # be a problem, but I'd like confirmation
-    sample [UniversalAnswer.new(10_u32, 5_u32), UniversalAnswer.new(10_u32, 5_u32).as(Sum) ] do |subj|
-
+    sample [UniversalAnswer.new(10_u32, 5_u32), UniversalAnswer.new(10_u32, 5_u32).as(Sum)] do |subj|
       it "supports overriding fake functions" do
         expect(subj.to_json).to eq(%q({"a":10,"b":5,"universal_constant":42,"sum":42}))
         # verify that a function in our base class "Sum::result" calls the
@@ -179,6 +178,5 @@ Spectator.describe JSON::FakeField do
         expect(result["b"]).to eq(b)
       end
     end
-
   end
 end
