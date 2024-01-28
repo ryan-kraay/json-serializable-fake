@@ -149,4 +149,36 @@ Spectator.describe JSON::FakeField do
       expect(result.json_unmapped["sum"]).to eq(a + b)
     end
   end
+
+  context "inheritance" do
+    class UniversalAnswer < Sum
+      # we override the existing fake function
+      def sum(json : ::JSON::Builder) : Nil
+        json.number(universal_constant)
+      end
+
+      # add a new field
+      property universal_constant : UInt32 = 42_u32
+    end
+
+    # The use of typecasting "as(Sum)", allows us to explore if we slice
+    # classes.  Since Crystal Classes are referenced based, this should not
+    # be a problem, but I'd like confirmation
+    sample [UniversalAnswer.new(10_u32, 5_u32), UniversalAnswer.new(10_u32, 5_u32).as(Sum) ] do |subj|
+
+      it "supports overriding fake functions" do
+        expect(subj.to_json).to eq(%q({"a":10,"b":5,"universal_constant":42,"sum":42}))
+        # verify that a function in our base class "Sum::result" calls the
+        # proper child function "UniversalAnswer::sum"
+        result = subj.result
+        expect(result["sum"]).to eq(42_u32)
+        # Even if we're referring to the parent class, we still
+        # have access to the child's fields via the proxied .to_json method
+        expect(result["universal_constant"]).to eq(42_u32)
+        expect(result["a"]).to eq(a)
+        expect(result["b"]).to eq(b)
+      end
+    end
+
+  end
 end
