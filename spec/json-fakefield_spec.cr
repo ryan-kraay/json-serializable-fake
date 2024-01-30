@@ -111,7 +111,7 @@ Spectator.describe JSON::FakeField do
     it "includes types" do
       # A universal widget that can be fed any enum type...
       widget = Widget.new(Color::Red, Color::Blue)
-      expect(widget.to_json).to eq(%q({"a":"red","b":"blue","types":["red","green","blue"]}))
+      expect(widget.to_json).to eq(%q({"types":["red","green","blue"],"a":"red","b":"blue"}))
     end
   end
 
@@ -159,6 +159,12 @@ Spectator.describe JSON::FakeField do
 
       # add a new field
       property universal_constant : UInt32 = 42_u32
+
+      # we replace an existing getter
+      @[JSON::FakeField(key: a)]
+      def replace_prop_a(json : ::JSON::Builder) : Nil
+        123_u32.to_json json
+      end
     end
 
     # The use of typecasting "as(Sum)", allows us to explore if we slice
@@ -166,7 +172,7 @@ Spectator.describe JSON::FakeField do
     # be a problem, but I'd like confirmation
     sample [UniversalAnswer.new(10_u32, 5_u32), UniversalAnswer.new(10_u32, 5_u32).as(Sum)] do |subj|
       it "supports overriding fake functions" do
-        expect(subj.to_json).to eq(%q({"a":10,"b":5,"universal_constant":42,"sum":42}))
+        expect(subj.to_json).to eq(%q({"a":123,"sum":42,"b":5,"universal_constant":42}))
         # verify that a function in our base class "Sum::result" calls the
         # proper child function "UniversalAnswer::sum"
         result = subj.result
@@ -174,7 +180,7 @@ Spectator.describe JSON::FakeField do
         # Even if we're referring to the parent class, we still
         # have access to the child's fields via the proxied .to_json method
         expect(result["universal_constant"]).to eq(42_u32)
-        expect(result["a"]).to eq(a)
+        expect(result["a"]).to eq(123_u32)
         expect(result["b"]).to eq(b)
       end
     end
