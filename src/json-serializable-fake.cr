@@ -68,32 +68,11 @@ module JSON
         {% emit_nulls = options && options[:emit_nulls] %}
 
         {% properties = {} of Nil => Nil %}
-        {% for t in ([@type] + @type.ancestors) %}
-          {% for imeth in t.methods %}
-            {% ann = imeth.annotation(::JSON::FakeField) %}
-            {% if ann && !(ann[:ignore] || ann[:ignore_serialize] == true) %}
-              {%
-                key = ((ann && ann[:key]) || imeth.name).id
-                properties[key] = {
-                  key:              key.stringify,
-                  root:             nil,
-                  converter:        nil,
-                  emit_null:        nil,
-                  ignore_serialize: nil,
-                  ivar:             nil,
-                  imeth:            imeth,
-                  suppress_key:      (ann && ann[:suppress_key])
-                }
-              %}
-            {% end %}
-          {% end %}
-        {% end %}
-
         {% for ivar in @type.instance_vars %}
           {% ann = ivar.annotation(::JSON::Field)
              key = ((ann && ann[:key]) || ivar).id
           %}
-          {% unless (ann && (ann[:ignore] || ann[:ignore_serialize] == true)) || properties[key] %}
+          {% unless ann && (ann[:ignore] || ann[:ignore_serialize] == true) %}
             {%
               properties[key] = {
                 key:              key.stringify,
@@ -109,14 +88,35 @@ module JSON
           {% end %}
         {% end %}
 
+        {% for t in (@type.ancestors + [@type]) %}
+          {% for imeth in t.methods %}
+            {% ann = imeth.annotation(::JSON::FakeField) %}
+            {% if ann && !(ann[:ignore] || ann[:ignore_serialize] == true) %}
+              {%
+                key = ((ann && ann[:key]) || imeth.name).id
+                properties[key] = {
+                  key:              key.stringify,
+                  root:             nil,
+                  converter:        nil,
+                  emit_null:        nil,
+                  ignore_serialize: nil,
+                  ivar:             nil,
+                  imeth:            imeth.name,
+                  suppress_key:     (ann && ann[:suppress_key])
+                }
+              %}
+            {% end %}
+          {% end %}
+        {% end %}
+
         json.object do
           {% for name, value in properties %}
             {% if value[:imeth] %}
               {% if value[:suppress_key] %}
-                {{ value[:imeth].name }} json
+                {{ value[:imeth] }} json
               {% else %}
                 json.field {{ value[:key] }} do
-                  {{ value[:imeth].name }} json
+                  {{ value[:imeth] }} json
                 end
               {% end %}
             {% else %}
