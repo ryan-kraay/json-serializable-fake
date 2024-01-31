@@ -151,31 +151,58 @@ Spectator.describe JSON::FakeField do
   end
 
   context "inheritance" do
-    class UniversalAnswer < Sum
+    class SuperSum < Sum
       # we override the existing fake function
       def sum(json : ::JSON::Builder) : Nil
-        json.number(universal_constant)
+        json.number(a + b + c)
       end
 
       # add a new field
+      property c : UInt32
+
+      # add a new field
       property universal_constant : UInt32 = 42_u32
+
+      # we replace an existing getter
+      @[JSON::FakeField(key: b)]
+      def replace_prop_b(json : ::JSON::Builder) : Nil
+        123_u32.to_json json
+      end
+
+      # we conditionally suppress a field
+      @[JSON::FakeField(suppress_key: true)]
+      def c(json : ::JSON::Builder) : Nil
+        if @a % 10 == 0
+          # by using `suppress_key: true`, we need to create all the fields
+          json.field "c", @c
+        end
+      end
+
+      def initialize(@a, @b, @c)
+      end
     end
 
     # The use of typecasting "as(Sum)", allows us to explore if we slice
     # classes.  Since Crystal Classes are referenced based, this should not
     # be a problem, but I'd like confirmation
-    sample [UniversalAnswer.new(10_u32, 5_u32), UniversalAnswer.new(10_u32, 5_u32).as(Sum)] do |subj|
-      it "supports overriding fake functions" do
-        expect(subj.to_json).to eq(%q({"a":10,"b":5,"universal_constant":42,"sum":42}))
+    sample [SuperSum.new(9_u32, 5_u32, 2_u32), SuperSum.new(9_u32, 5_u32, 2_u32).as(Sum)] do |subj|
+      it "supports overriding json props in a predictable way" do
+        # The to_json() has a very predictable process:
+        #   1. all eligible instance variables are processed sequentially
+        #   2. any instance variables which are to be replaced with instance methods are replaced (ie: the original ordering of instance variables is retained)
+        #   3. any remaining instance methods are processed last
+
+        # "a" is an ivar, "b" is a replaced ivar, "c" was a suppressed ivar, "universal_constant" is an ivar, "sum" is an imethod
+        expect(subj.to_json).to eq(%q({"a":9,"b":123,"universal_constant":42,"sum":16}))
         # verify that a function in our base class "Sum::result" calls the
-        # proper child function "UniversalAnswer::sum"
+        # proper child function "SuperSum::sum"
         result = subj.result
-        expect(result["sum"]).to eq(42_u32)
+        expect(result["sum"]).to eq(16_u32)
         # Even if we're referring to the parent class, we still
         # have access to the child's fields via the proxied .to_json method
         expect(result["universal_constant"]).to eq(42_u32)
-        expect(result["a"]).to eq(a)
-        expect(result["b"]).to eq(b)
+        expect(result["a"]).to eq(9_u32)
+        expect(result["b"]).to eq(123_u32)
       end
     end
   end
