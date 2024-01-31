@@ -59,10 +59,9 @@ module JSON
   # just a lack of time.  However, you can use `JSON::Serializable::Unmapped` to capture all the fake fields.
   #
   module Serializable::Fake
-
-  # heavily modelled after:
-  # https://github.com/crystal-lang/crystal/blob/fda656c71/src/json/serialization.cr#L181
-  def to_json(json : ::JSON::Builder)
+    # heavily modelled after:
+    # https://github.com/crystal-lang/crystal/blob/fda656c71/src/json/serialization.cr#L181
+    def to_json(json : ::JSON::Builder)
       {% begin %}
         {% options = @type.annotation(::JSON::Serializable::Options) %}
         {% emit_nulls = options && options[:emit_nulls] %}
@@ -70,8 +69,7 @@ module JSON
         {% properties = {} of Nil => Nil %}
         {% for ivar in @type.instance_vars %}
           {% ann = ivar.annotation(::JSON::Field)
-             key = ((ann && ann[:key]) || ivar).id
-          %}
+             key = ((ann && ann[:key]) || ivar).id %}
           {% unless ann && (ann[:ignore] || ann[:ignore_serialize] == true) %}
             {%
               properties[key] = {
@@ -82,7 +80,7 @@ module JSON
                 ignore_serialize: ann && ann[:ignore_serialize],
                 ivar:             ivar.id,
                 imeth:            nil,
-                suppress_key:      nil,
+                suppress_key:     nil,
               }
             %}
           {% end %}
@@ -102,7 +100,7 @@ module JSON
                   ignore_serialize: nil,
                   ivar:             nil,
                   imeth:            imeth.name,
-                  suppress_key:     (ann && ann[:suppress_key])
+                  suppress_key:     (ann && ann[:suppress_key]),
                 }
               %}
             {% end %}
@@ -174,6 +172,5 @@ module JSON
         end
       {% end %}
     end
-
   end
 end

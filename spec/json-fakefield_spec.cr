@@ -187,7 +187,6 @@ Spectator.describe JSON::FakeField do
     # be a problem, but I'd like confirmation
     sample [SuperSum.new(9_u32, 5_u32, 2_u32), SuperSum.new(9_u32, 5_u32, 2_u32).as(Sum)] do |subj|
       it "supports overriding json props in a predictable way" do
-
         # The to_json() has a very predictable process:
         #   1. all eligible instance variables are processed sequentially
         #   2. any instance variables which are to be replaced with instance methods are replaced (ie: the original ordering of instance variables is retained)
