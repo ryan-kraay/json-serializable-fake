@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="json-serializable-fake">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="json-serializable-fake">
+  <title>JSON::Serializable::Fake - json-serializable-fake main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          json-serializable-fake
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="json-serializable-fake/JSON" data-name="json">
+      <a href="../../JSON.html">JSON</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="json-serializable-fake/JSON/Serializable" data-name="json::serializable">
+      <a href="../../JSON/Serializable.html">Serializable</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="json-serializable-fake/JSON/Serializable/Fake" data-name="json::serializable::fake">
+      <a href="../../JSON/Serializable/Fake.html">Fake</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> JSON::<wbr>Serializable::<wbr>Fake
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p><code><a href="../../JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> allows method calls to generate JSON content.</p>
+<h3><a id="example" class="anchor" href="#example">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Example</h3>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json/fakefield&quot;</span>
+
+<span class="k">class</span> <span class="t">Sum</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span><span class="t">::</span><span class="t">Fake</span>
+
+  property a : <span class="t">UInt32</span>
+  property b : <span class="t">UInt32</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@a, @b)
+  <span class="k">end</span>
+
+  @[<span class="t">JSON</span><span class="t">::</span><span class="t">FakeField</span>]
+  <span class="k">def</span> <span class="m">sum</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    json.number(a <span class="o">+</span> b)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+s <span class="o">=</span> <span class="t">Sum</span>.new(<span class="n">10</span>, <span class="n">5</span>)
+puts s.to_json <span class="c"># =&gt; { &quot;a&quot;: 10, &quot;b&quot;: 5, &quot;sum&quot;: 15 }</span></code></pre>
+<h3><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h3>
+<p><code><a href="../../JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> will create <code>extend_to_json</code> (which will actually call
+your methods) and will replace the <code>on_to_json</code> method generated by <code><a href="../../JSON/Serializable.html">JSON::Serializable</a></code>.</p>
+<p><code><a href="../../JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> <strong>is</strong> compatible with <code>JSON::Serializable::Unmapped</code> and
+<code>JSON::Serializable::Strict</code> <em>as long as</em> <code><a href="../../JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> is included <strong>last</strong>.</p>
+<p>You can customize the behavior of each fake field via the <code>JSON::FakeField</code> annotation.
+Method calls <strong>MUST</strong> accept <code>::JSON::Builder</code> as a parameter and return <code>::Nil</code>.  The
+construction of JSON elements is handled via <a href="https://github.com/crystal-lang/crystal/blob/master/src/json/builder.cr#L6">::JSON::Builder</a>.</p>
+<p><code>JSON::FakeField</code> properties:</p>
+<ul>
+<li><strong>key</strong>: an explicit name of the field added to the json string (by default it uses the method name)</li>
+<li><strong>suppress_key</strong>: if <code>true</code> no json field will be implictly added.  This allows the method call to create multiple json fields</li>
+</ul>
+<p><span class="flag yellow">WARNING</span>  At the moment it is <strong>not</strong> possible to deserialize fake fields into a method call.  There is no technical limitation,
+just a lack of time.  However, you can use <code>JSON::Serializable::Unmapped</code> to capture all the fake fields.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/ryan-kraay/json-serializable-fake/blob/4d5f13fc41af780ac50191802b0e82664a93e642/src/json-serializable-fake.cr#L3" target="_blank">
+        json-serializable-fake.cr:3
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/ryan-kraay/json-serializable-fake/blob/4d5f13fc41af780ac50191802b0e82664a93e642/src/json-serializable-fake.cr#L61" target="_blank">
+        json-serializable-fake.cr:61
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="VERSION">
+        <strong>VERSION</strong> = <code><span class="s">&quot;0.0.1&quot;</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#to_json%28json%3AJSON%3A%3ABuilder%29-instance-method" class="signature"><strong>#to_json</strong>(json : JSON::Builder)</a>
+        
+          <div class="summary"><p>heavily modelled after: https://github.com/crystal-lang/crystal/blob/fda656c71/src/json/serialization.cr#L181</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="to_json(json:JSON::Builder)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_json</strong>(json : JSON::Builder)
+
+        <a class="method-permalink" href="#to_json%28json%3AJSON%3A%3ABuilder%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>heavily modelled after:
+https://github.com/crystal-lang/crystal/blob/fda656c71/src/json/serialization.cr#L181</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/ryan-kraay/json-serializable-fake/blob/4d5f13fc41af780ac50191802b0e82664a93e642/src/json-serializable-fake.cr#L64" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>

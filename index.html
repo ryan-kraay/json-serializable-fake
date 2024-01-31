@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="json-serializable-fake">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="json-serializable-fake">
+  <title>json-serializable-fake main</title>
+  <script type="text/javascript">
+  CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          json-serializable-fake
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="json-serializable-fake/JSON" data-name="json">
+      <a href="JSON.html">JSON</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="json-serializable-fake/JSON/Serializable" data-name="json::serializable">
+      <a href="JSON/Serializable.html">Serializable</a>
+      
+        <ul>
+  
+  <li class=" " data-id="json-serializable-fake/JSON/Serializable/Fake" data-name="json::serializable::fake">
+      <a href="JSON/Serializable/Fake.html">Fake</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<div align="center">
+  <a href="https://github.com/ryan-kraay/json-serializable-fake/" target="_blank" rel="noopener noreferrer">
+    <img width="300" src="https://raw.githubusercontent.com/ryan-kraay/json-serializable-fake/master/assets/logo.png" alt="Logo">
+  </a>
+  <h1>Use JSON::Serializable to generate dynamic JSON/fields</h1>
+  <p>
+    <a href="https://github.com/ryan-kraay/json-serializable-fake/actions/workflows/ci.yml">
+      <img src="https://github.com/ryan-kraay/json-serializable-fake/actions/workflows/ci.yml/badge.svg" alt="Build Status">
+    </a>
+    <a href="https://github.com/ryan-kraay/json-serializable-fake/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/ryan-kraay/json-serializable-fake.svg" alt="License">
+    </a>
+    <a href="https://ryan-kraay.github.io/json-serializable-fake/index.html">
+      <img src="https://img.shields.io/badge/documentation-API-f06" alt="API Documentation">
+    </a>
+    <a href="https://github.com/ryan-kraay/json-serializable-fake/releases">
+      <img src="https://img.shields.io/github/release/ryan-kraay/json-serializable-fake.svg" alt="GitHub release">
+    </a>
+  </p>
+  <h3>
+    <a href="https://github.com/ryan-kraay/json-serializable-fake/">Website</a>
+    <span> • </span>
+    <a href="https://ryan-kraay.github.io/json-serializable-fake/index.html">Shard Docs</a>
+  </h3>
+</div>
+<hr/>
+<p>A Crystal Library which extends JSON::Serializable to allow JSON to be generated via method calls, instead of <em>requiring</em> the use of variables.</p>
+<p><strong>NOTE</strong>:  This library <em>only</em> supports <strong>Serialization</strong>.  <strong>Deserialization</strong> to <em>Fake FIelds</em> is not possible.</p>
+<h2><a id="installation" class="anchor" href="#installation">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Installation</h2>
+<ol>
+<li>
+<p>Add the dependency to your <code>shard.yml</code>:</p>
+<pre><code class="language-yaml">dependencies:
+  serializable-fake:
+    github: ryan-kraay/json-serializable-fake</code></pre>
+</li>
+<li>
+<p>Run <code>shards install</code></p>
+</li>
+</ol>
+<h2><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h2>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json&quot;</span>
+<span class="k">require</span> <span class="s">&quot;json-serializable-fake&quot;</span>
+
+<span class="k">class</span> <span class="t">Sum</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span><span class="t">::</span><span class="t">Fake</span>
+
+  property a : <span class="t">UInt32</span>
+  property b : <span class="t">UInt32</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@a, @b)
+  <span class="k">end</span>
+
+  @[<span class="t">JSON</span><span class="t">::</span><span class="t">FakeField</span>]
+  <span class="k">def</span> <span class="m">sum</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    json.number(a <span class="o">+</span> b)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+s <span class="o">=</span> <span class="t">Sum</span>.new(<span class="n">10</span>, <span class="n">5</span>)
+puts s.to_json    <span class="c"># =&gt; { &quot;a&quot;: 10, &quot;b&quot;: 5, &quot;sum&quot;: 15 }</span></code></pre>
+<p>Additional documentation can be found <a href="https://ryan-kraay.github.io/json-serializable-fake/JSON/Serializable/Fake.html">here</a>.</p>
+<h2><a id="features" class="anchor" href="#features">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Features</h2>
+<p>This library was born out of desire to use classes and members to construct JSON object, but <strong>also</strong> to use methods to construct JSON fields that <em>do not necessarily need to be stored as members in a class definition</em>.</p>
+<p>Some additional features:</p>
+<ul>
+<li><code>JSON::FakeField(key: &lt;name&gt;)</code>:  creates a field with an explicit name (by default it uses the method name)</li>
+<li><code>JSON::FakeField(supress_key: true)</code>:  if <code>true</code> no json field will be implicitly added.  This allows the method to create multiple json fields or an entire JSON document using <code>JSON::Builder</code>.</li>
+<li>Integrates with <code><a href="JSON/Serializable.html">JSON::Serializable</a></code> and <code>JSON::Serializable::Unmapped</code>:  this allows you to mix-and-match and create nested <code><a href="JSON/Serializable.html">JSON::Serializable</a></code> and <code><a href="JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> objects.</li>
+<li>It is possible to change, manipulate, or remove <code><a href="JSON/Serializable.html">JSON::Serializable</a></code> fields <em>at runtime</em>.</li>
+</ul>
+<p><strong>NOTE</strong>:  The use of <code><a href="JSON/Serializable.html">JSON::Serializable</a></code> relies on an &quot;opt-out&quot; feature (ie: <code>JSON::Field(ignore_serialization: true)]</code>).  Meaning <em>all</em> instance variables will be added to the json document, <em>unless you explicitly &quot;opt-out&quot;.</em>.  <code><a href="JSON/Serializable/Fake.html">JSON::Serializable::Fake</a></code> relies on an &quot;opt-in&quot; for instance methods.  Meaning that <em>only</em> those instance methods which contain the <code>JSON::FakeField</code> annotation will be added to the json document.</p>
+<h2><a id="advanced-example" class="anchor" href="#advanced-example">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Advanced Example</h2>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json&quot;</span>
+<span class="k">require</span> <span class="s">&quot;json-serializable-fake&quot;</span>
+
+<span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span><span class="t">::</span><span class="t">Fake</span>
+
+  property first : <span class="t">String</span>
+  property last : <span class="t">String</span>
+  property password : <span class="t">String</span>
+
+  @[<span class="t">JSON</span><span class="t">::</span><span class="t">FakeField</span>]
+  <span class="k">def</span> <span class="m">user</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    json.string( (@first <span class="o">+</span> @last).downcase )
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@first, @last, @password)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="t">SecuredUser</span> <span class="o">&lt;</span> <span class="t">User</span>
+  property age : <span class="t">UInt32</span>
+
+  <span class="c"># replace our user() implementation via simple inheritance</span>
+  <span class="k">def</span> <span class="m">user</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    json.string(<span class="s">&quot;retracted&quot;</span>)
+  <span class="k">end</span>
+
+  @[<span class="t">JSON</span><span class="t">::</span><span class="t">FakeField</span>(key: password)]
+  <span class="k">def</span> <span class="m">hide_password</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    json.string(<span class="s">&quot;******&quot;</span>)
+  <span class="k">end</span>
+
+  @[<span class="t">JSON</span><span class="t">::</span><span class="t">FakeField</span>(suppress_key: <span class="n">true</span>)]
+  <span class="k">def</span> <span class="m">age</span>(json : <span class="t">::</span><span class="t">JSON</span><span class="t">::</span><span class="t">Builder</span>) : <span class="t">Nil</span>
+    <span class="c"># Only show the age, if the user is over 18</span>
+    <span class="k">if</span> age <span class="o">&gt;</span> <span class="n">18</span>
+      json.field <span class="s">&quot;age&quot;</span>, @age
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@first, @last, @age, @password)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+user <span class="o">=</span> <span class="t">User</span>.new(<span class="s">&quot;John&quot;</span>, <span class="s">&quot;Doe&quot;</span>, <span class="s">&quot;hunter2&quot;</span>)
+puts user.to_json     <span class="c"># =&gt; {&quot;first&quot;:&quot;John&quot;,&quot;last&quot;:&quot;Doe&quot;,&quot;password&quot;:&quot;hunter2&quot;,&quot;user&quot;:&quot;johndoe&quot;}</span>
+
+child <span class="o">=</span> <span class="t">SecuredUser</span>.new(<span class="s">&quot;Jimmy&quot;</span>, <span class="s">&quot;Doe&quot;</span>, <span class="n">5_u32</span>, <span class="s">&quot;hunter2&quot;</span>)
+puts child.to_json    <span class="c"># =&gt; {&quot;first&quot;:&quot;Jimmy&quot;,&quot;last&quot;:&quot;Doe&quot;,&quot;password&quot;:&quot;******&quot;,&quot;user&quot;:&quot;retracted&quot;}</span>
+puts child.password   <span class="c"># =&gt; hunter2</span>
+
+adult <span class="o">=</span> <span class="t">SecuredUser</span>.new(<span class="s">&quot;Jane&quot;</span>, <span class="s">&quot;Doe&quot;</span>, <span class="n">24_u32</span>, <span class="s">&quot;hunter2&quot;</span>)
+puts adult.to_json    <span class="c"># =&gt; {&quot;first&quot;:&quot;Jane&quot;,&quot;last&quot;:&quot;Doe&quot;,&quot;password&quot;:&quot;******&quot;,&quot;age&quot;:24,&quot;user&quot;:&quot;retracted&quot;}</span>
+puts adult.password   <span class="c"># =&gt; hunter2</span>
+</code></pre>
+<h2><a id="limitations" class="anchor" href="#limitations">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Limitations</h2>
+<ol>
+<li>This library only supports JSON <em>Serialization</em> (not YAML).  There is no technical reason for this limitation, just a lack of time.</li>
+<li>This library only support <em>Serialization</em>.  <em>Deserializing</em> into a method call is not support.  Again, there is no technical limitation, only time.  However, <code>JSON::FakeFields</code> will appear as <code>objecct.json_unmapped[&lt;fakefield&gt;]</code>, when <code>JSON::Serializable::Unmapped</code> is used.</li>
+</ol>
+<h2><a id="contributing" class="anchor" href="#contributing">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributing</h2>
+<ol>
+<li>Fork it (<a href="https://github.com/ryan-kraay/json-serializable-fake/fork">https://github.com/ryan-kraay/json-serializable-fake/fork</a>)</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+</div>
+</body>
+</html>
